@@ -49,3 +49,19 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+# PART A — Print the First N Terms
+def print_fibonacci_terms(n):
+    """
+    Print the first n terms of the Fibonacci sequence on one line.
+    Uses a loop, not recursion.
+    """
+    if n <= 0:
+        print("Error: N must be a positive integer.")
+        return
+
+    a, b = 0, 1   # first two Fibonacci numbers
+    print("Fibonacci sequence:", end=" ")
+
+    # Generate and print n terms
+    for _ in range(n):
+        print(a, end=" ")

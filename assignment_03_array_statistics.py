@@ -39,3 +39,74 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def calc_sum(numbers):
+    """Return the sum of all numbers in the list using a loop."""
+    total = 0
+    for value in numbers:
+        total += value
+    return total
+
+
+def calc_average(numbers):
+    """Return the average of the numbers in the list."""
+    # Avoid division by zero just in case
+    if len(numbers) == 0:
+        return 0
+    total = calc_sum(numbers)
+    return total / len(numbers)
+
+
+def calc_max(numbers):
+    """Return the maximum value in the list using a loop."""
+    # Assume list is non-empty as per assignment input
+    maximum = numbers[0]
+    for value in numbers:
+        if value > maximum:
+            maximum = value
+    return maximum
+
+
+def calc_min(numbers):
+    """Return the minimum value in the list using a loop."""
+    # Assume list is non-empty as per assignment input
+    minimum = numbers[0]
+    for value in numbers:
+        if value < minimum:
+            minimum = value
+    return minimum
+
+
+def main():
+    # Ask how many numbers
+    n_input = input("How many numbers? ")
+    n = int(n_input)
+
+    # Validate N is positive
+    if n <= 0:
+        print("Error: Number of elements must be a positive integer.")
+        return  # Stop the program
+
+    numbers = []
+
+    # Read n numbers from the user
+    for i in range(1, n + 1):
+        value_input = input(f"Enter number {i}: ")
+        value = float(value_input)  # or int(...) if you only want integers
+        numbers.append(value)
+
+    # Compute statistics using functions
+    total = calc_sum(numbers)
+    average = calc_average(numbers)
+    maximum = calc_max(numbers)
+    minimum = calc_min(numbers)
+
+    # Display results
+    print("\nResults:")
+    print(f"Sum:     {total}")
+    print(f"Average: {average}")
+    print(f"Maximum: {maximum}")
+    print(f"Minimum: {minimum}")
+
+
+if __name__ == "__main__":
+    main()

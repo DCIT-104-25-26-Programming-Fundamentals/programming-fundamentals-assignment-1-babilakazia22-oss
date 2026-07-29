@@ -90,3 +90,147 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+# Global list to store all student records
+students = []
+
+
+def add_student():
+    """
+    Feature 1: Add a Student.
+    Ask for name, ID, number of scores, then collect each score and store.
+    """
+    name = input("Student name: ")
+    id_input = input("Student ID: ")
+    try:
+        student_id = int(id_input)
+    except ValueError:
+        print("Error: Student ID must be a number.")
+        return
+
+    # Ask how many scores
+    try:
+        count = int(input("How many scores? "))
+        if count <= 0:
+            print("Error: Number of scores must be positive.")
+            return
+    except ValueError:
+        print("Error: Please enter a valid integer for number of scores.")
+        return
+
+    scores = []
+    for i in range(1, count + 1):
+        try:
+            score = float(input(f"Enter score {i}: "))
+            scores.append(score)
+        except ValueError:
+            print("Error: Score must be a number.")
+            return
+
+    # Create dictionary record
+    student = {
+        "name": name,
+        "id": student_id,
+        "scores": scores
+    }
+
+    students.append(student)
+    print(f'Student "{name}" added successfully.')
+
+
+def calculate_average(scores):
+    """
+    Helper: Calculate average of a list of scores and return rounded to 2 decimals.
+    """
+    if not scores:
+        return 0.0
+    total = 0
+    for s in scores:
+        total += s
+    avg = total / len(scores)
+    return round(avg, 2)
+
+
+def display_all_students():
+    """
+    Feature 2: Display all students in a formatted table.
+    Shows Name, ID, scores, and average score.
+    """
+    if not students:
+        print("No student records found.")
+        return
+
+    print("--------------------------------------------------")
+    print(f"{'Name':15} {'ID':10} {'Scores':15} {'Average'}")
+    print("--------------------------------------------------")
+
+    for student in students:
+        name = student["name"]
+        sid = student["id"]
+        scores = student["scores"]
+        scores_str = ", ".join(str(s) for s in scores)
+        avg = calculate_average(scores)
+        print(f"{name:15} {sid:<10} {scores_str:15} {avg:.2f}")
+
+    print("--------------------------------------------------")
+
+
+def calculate_average_for_student():
+    """
+    Feature 3: Calculate average score for a specific student by ID.
+    """
+    id_input = input("Enter student ID: ")
+    try:
+        search_id = int(id_input)
+    except ValueError:
+        print("Error: Student ID must be a number.")
+        return
+
+    # Find the student
+    for student in students:
+        if student["id"] == search_id:
+            avg = calculate_average(student["scores"])
+            print(f"{student['name']}'s average score: {avg:.2f}")
+            return
+
+    # If not found
+    print("Error: Student ID not found.")
+
+
+def show_menu():
+    """
+    Print the main menu.
+    """
+    print("\n================================")
+    print("   STUDENT RECORD SYSTEM MENU   ")
+    print("================================")
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+    print("Enter your choice (1-4): ", end="")
+
+
+def main():
+    """
+    Main loop: keeps menu running until user chooses to quit.
+    """
+    while True:
+        show_menu()
+        choice = input().strip()
+
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            display_all_students()
+        elif choice == "3":
+            calculate_average_for_student()
+        elif choice == "4":
+            print("Exiting Student Record System. Goodbye!")
+            break
+        else:
+            # Handle invalid menu choices gracefully
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
+
+if __name__ == "__main__":
+    main()
